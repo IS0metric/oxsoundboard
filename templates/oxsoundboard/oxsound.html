@@ -104,8 +104,10 @@
 
 <script type="text/javascript">
 var sound = "{{filename}}";
+var str = "{% static 'audio/sound.mp3' %}";
+var url = str.replace("sound", sound);
 var howl = new Howl({
-  src: ["{% static 'audio/"+sound+".mp3' %}"]
+  src: [url]
 });
 
 $('#' + sound + '_btn_play').on('click', function () {
