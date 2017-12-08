@@ -1,6 +1,9 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+<script>
+console.log("{% static 'audio/airhorn.mp3' %}");
+</script>
 <head>
   <link rel="icon" href="{% static 'img/favicon.ico' %}" />
   <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
@@ -132,11 +135,14 @@ $(document).ready(function(){
   var howls = {};
 
   sounds.forEach(function(sound){
+        var str = "{% static 'audio/airhorn.mp3' %}";
+        var url = str.replace("airhorn", sound);
+        console.log(url)
   	howls[sound] = new Howl({
-  		src: ["{% static 'audio/"+sound+".mp3' %}"]
+  		src: [url]
   	});
 
-    $(document).on('click', '#'+sound+'_btn_play', function(){
+        $(document).on('click', '#'+sound+'_btn_play', function(){
   		howls[sound].play();
   	});
   	$(document).on('click', '#'+sound+'_btn_stop', function(){

@@ -31,6 +31,9 @@ ALLOWED_HOSTS = ['oxsoundboard.com', 'www.oxsoundboard.com']
 
 # Application definition
 
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+#STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -127,7 +130,9 @@ USE_TZ = True
 
 STATIC_PATH = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+STATIC_ROOT = "/home/parkinsonj94/webapps/oxsoundboard_static/"
 
 STATICFILES_DIRS = (
     STATIC_PATH,
+    #"webapps/oxsoundboard_static/",
 )

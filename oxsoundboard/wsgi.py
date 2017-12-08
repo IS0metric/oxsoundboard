@@ -9,10 +9,10 @@ https://docs.djangoproject.com/en/1.9/howto/deployment/wsgi/
 
 import os
 import sys
-import db_conf
+
 from django.core.wsgi import get_wsgi_application
 
-path = db_conf.WS_PATH
+path = "home/parkinsonj94/webapps/oxsoundboard"
 if path not in sys.path:
     sys.path.append(path)
 
