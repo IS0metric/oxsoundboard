@@ -135,14 +135,13 @@ $(document).ready(function(){
   var howls = {};
 
   sounds.forEach(function(sound){
-        var str = "{% static 'audio/airhorn.mp3' %}";
-        var url = str.replace("airhorn", sound);
-        console.log(url)
+    var str = "{% static 'audio/airhorn.mp3' %}";
+    var url = str.replace("airhorn", sound);
   	howls[sound] = new Howl({
   		src: [url]
   	});
 
-        $(document).on('click', '#'+sound+'_btn_play', function(){
+    $(document).on('click', '#'+sound+'_btn_play', function(){
   		howls[sound].play();
   	});
   	$(document).on('click', '#'+sound+'_btn_stop', function(){
