@@ -2,7 +2,10 @@ import os
 from django.core.wsgi import get_wsgi_application
 #     ["","","","",""],
 
-raw_list = []
+raw_list = [
+    ["timcurry_space","Misc","Tim Curry - Space","SPAAICE","https://www.youtube.com/watch?v=g1Sq1Nr58hM"],
+    ["timcurry_capitalism","Misc","Tim Curry - Capitalism","I'm going to the one place not corrupted by capitalsim... SPAAICE","https://www.youtube.com/watch?v=g1Sq1Nr58hM"],
+]
 
 def populate():
     for sound in raw_list:

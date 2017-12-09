@@ -70,14 +70,31 @@
     padding-left: 12px;
   }
 
+  .clean-link{
+    color: #333;
+    font-style: italic;
+  }
+  .large-hr{
+    background-color: rgb(166,132,189);
+    margin:2px;
+    height: 2px;
+    size: 2px;
+  }
+
   </style>
 </head>
 
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-4 col-sm-12">
       <h1>OX Soundboard</h1>
+    </div>
+    <div class="col-sm-4 hidden-xs" style="text-align: center;">
+      <h3><a href="https://discord.gg/kfWazWg" class="clean-link">Find us on Discord!</a></h3>
+    </div>
+    <div class="col-sm-4 hidden-xs" style="text-align: center;">
+      <h3><a href="http://jack-parkinson.com" class="clean-link">About the creator</a></h3>
     </div>
   </div>
   <div class="row">
@@ -116,6 +133,17 @@
           {% endfor %}
         </tbody>
       </table>
+    </div>
+  </div>
+  <div class="row visible-xs">
+    <div class="col-xs-12" style="text-align: center;">
+      <hr class="large-hr" />
+    </div>
+    <div class="col-xs-12" style="text-align: center;">
+      <h3><a href="https://discord.gg/kfWazWg" class="clean-link">Find us on Discord!</a></h3>
+    </div>
+    <div class="col-xs-12" style="text-align: center;">
+      <h3><a href="http://jack-parkinson.com" class="clean-link">About the creator</a></h3>
     </div>
   </div>
 </div>
