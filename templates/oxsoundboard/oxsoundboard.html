@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: http://ogp.me/ns#">
 <head>
   <link rel="icon" href="{% static 'img/favicon.ico' %}" />
   <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
@@ -15,7 +15,11 @@
   <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Ox Soundboard - Jack Parkinson</title>
+  <title>OX Soundboard - Jack Parkinson</title>
+  <meta property="og:title" content="OX Soundboard" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://oxsoundboard.com" />
+  <meta property="og:image" content="{% static 'img/favicon.ico' %}" />
 
 
   <style>
