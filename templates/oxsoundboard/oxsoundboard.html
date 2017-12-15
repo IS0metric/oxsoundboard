@@ -176,8 +176,7 @@ $(document).ready(function(){
   	$(document).on('click', '#'+sound+'_btn_stop', function(){
   		howls[sound].stop();
   	});
-
-    $('#'+sound+"_btn_download").attr('href',"{% static 'audio/"+sound+".mp3' %}");
+    $('#'+sound+"_btn_download").attr('href',url);
   });
   $(document).ready(function() {
     $('#myTable').DataTable({

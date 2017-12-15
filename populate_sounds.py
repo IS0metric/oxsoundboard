@@ -2,7 +2,9 @@ import os
 from django.core.wsgi import get_wsgi_application
 #     ["","","","",""],
 
-raw_list = []
+raw_list = [
+    ["jane_fire", "Jane", "Now You're On Fire", "You couldn't just let it alone, and now you're on fire.", "https://www.youtube.com/watch?v=jkBwcxToWqc"]
+]
 
 def populate():
     for sound in raw_list:
@@ -11,6 +13,7 @@ def populate():
         sound_name = sound[2]
         sound_description = sound[3]
         sound_link = sound[4]
+        print("\tAdding " + sound_filename)
         Sound.objects.get_or_create(
             filename=sound_filename,
             description=sound_description,
