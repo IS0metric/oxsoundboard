@@ -7,5 +7,6 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.oxsoundboard, name='oxsoundboard'),
-    url(r'^(?P<filename>[-\w]+)', views.oxsound, name='oxsound'),
+    url(r'^(?P<filename>[-\w]+)/$', views.oxsound, name='oxsound'),
+    url(r'^update/(?P<filename>[-\w]+)/$', views.update_counter, name='update_counter'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -10,12 +10,13 @@ class Sound(models.Model):
     person = models.CharField(max_length=255, default=None, null=True, blank=True)
     description = models.CharField(max_length=255)
     video_url = models.CharField(max_length=255, default=None)
+    num_plays = models.IntegerField(default=0)
 
     def __str__(self):
         return self.filename
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('num_plays',)
 
     def get_absolute_url(self):
         return reverse('oxsound', kwargs={'filename': self.filename})

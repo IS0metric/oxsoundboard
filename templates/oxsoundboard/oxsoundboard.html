@@ -154,9 +154,9 @@
 
 <script type="text/javascript">
 
-$(document).ready(function(){
-  console.log("READY");
-});
+  $(document).ready(function(){
+    console.log("READY");
+  });
 
   var sounds = "{{js_sounds|escapejs}}";
   sounds = JSON.parse(sounds);
@@ -172,13 +172,14 @@ $(document).ready(function(){
 
     $(document).on('click', '#'+sound+'_btn_play', function(){
   		howls[sound].play();
+      update_count(sound);
   	});
   	$(document).on('click', '#'+sound+'_btn_stop', function(){
   		howls[sound].stop();
   	});
     $('#'+sound+"_btn_download").attr('href',url);
   });
-  $(document).ready(function() {
+  var table = $(document).ready(function() {
     $('#myTable').DataTable({
       paging: false,
       ordering: true,
@@ -189,6 +190,13 @@ $(document).ready(function(){
         "orderable": false
         } ]
     });
-} );
+  } );
+
+  function update_count(sound){
+    var url = "update/" + sound;
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", url, false ); // false for synchronous request
+    xmlHttp.send( null );
+  }
 </script>
 </html>
