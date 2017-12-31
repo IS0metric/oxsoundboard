@@ -102,3 +102,6 @@ ENV/
 
 # Database configuration file
 db_conf.py
+
+# Restart script
+r.sh
