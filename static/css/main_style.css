@@ -1,0 +1,90 @@
+body{
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 16px;
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+  background-color: rgb(163,200,84);
+}
+.table-striped > tbody > tr:nth-child(2n+1) > td > button > i, .table-striped > tbody > tr:nth-child(2n+1) > th {
+  color: rgb(163,200,84);
+}
+.table-striped > tbody > tr:nth-child(2n+1) > td > a > button > i, .table-striped > tbody > tr:nth-child(2n+1) > th {
+  color: rgb(163,200,84);
+}
+.table-striped > tbody > tr:nth-child(2n) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+  background-color: rgb(166,132,189);
+}
+.table-striped > tbody > tr:nth-child(2n) > td > button > i, .table-striped > tbody > tr:nth-child(2n+1) > th {
+  color: rgb(166,132,189);
+}
+.table-striped > tbody > tr:nth-child(2n) > td > a > button > i, .table-striped > tbody > tr:nth-child(2n+1) > th {
+  color: rgb(166,132,189);
+}
+
+.table-borderless > tbody > tr > td,
+.table-borderless > tbody > tr > th,
+.table-borderless > tfoot > tr > td,
+.table-borderless > tfoot > tr > th,
+.table-borderless > thead > tr > td,
+.table-borderless > thead > tr > th {
+  border: none;
+}
+
+table {
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.btn-sty{
+  width:32px;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin: 1px;
+}
+
+.btn-green{
+  font-style: bold;
+  color: white;
+  background-color: rgb(163,200,84);
+}
+
+.marginless{
+  margin: 0;
+  padding: 0;
+}
+
+.dataTables_filter {
+  float: left;
+  text-align: left;
+  padding-left: 12px;
+}
+
+.large-hr{
+  background-color: rgb(166,132,189);
+  margin:2px;
+  height: 2px;
+  size: 2px;
+}
+.hidden-st{
+  display: none;
+}
+
+a.neat-link{
+  color: #333;
+  font-weight:bold;
+}
+
+a.neat-link:hover{
+  color: rgb(163,200,84);
+  text-decoration: none;
+}
+
+.padded-top{
+  padding-top:20px;
+}
+
+.bottom-link-div{
+  text-align: center;
+  padding:10px;
+}

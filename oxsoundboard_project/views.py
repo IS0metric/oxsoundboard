@@ -26,7 +26,7 @@ def oxsound(request, filename):
 
 
 def update_counter(request, filename):
-    """Update counter - used as a headless GET request. Given a filenmae, gets
+    """Update counter - used as a headless GET request. Given a filename, gets
     the corresponding sound and updates the play count
     """
     sound = Sound.objects.get(filename=filename)
