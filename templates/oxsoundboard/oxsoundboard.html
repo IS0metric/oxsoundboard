@@ -110,7 +110,7 @@
         <input type="text" class="form-control" id="modal_content" />
       </div>
       <div class="modal-footer">
-        <button onclick="window.location.href='{{sound.get_absolute_url}}'" class="btn btn-default btn-sty" style="display:inline" title="Get sharable url"><i class="fa fa-share"></i></button>
+        <button onclick="nav_to_link()" class="btn btn-default btn-sty" style="display:inline" title="Navigate to url"><i class="fa fa-share"></i></button>
         <button type="button" class="btn btn-default btn-green" id="copy_to_clip_btn">Copy to Clipboard</button>
       </div>
     </div>
@@ -191,6 +191,12 @@
     } catch (err) {
       console.log('Oops, unable to copy');
     }
+  }
+
+  function nav_to_link(){
+    var url = $("#modal_content").val();
+    console.log(url);
+    window.location.href = url;
   }
 </script>
 </html>
