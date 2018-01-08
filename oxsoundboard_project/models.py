@@ -16,7 +16,7 @@ class Sound(models.Model):
         return self.filename
 
     class Meta:
-        ordering = ('num_plays',)
+        ordering = ('-num_plays',)
 
     def get_absolute_url(self):
         return reverse('oxsound', kwargs={'filename': self.filename})

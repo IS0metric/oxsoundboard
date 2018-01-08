@@ -7,6 +7,7 @@
   <script src="{% static 'js/howler.js' %}"></script>
 
   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
   <link href="{% static 'css/dataTables.bootstrap.min.css' %}" rel="stylesheet"/>
@@ -20,72 +21,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="http://oxsoundboard.com" />
   <meta property="og:image" content="{% static 'img/favicon.ico' %}" />
-
-
-  <style>
-    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
-      background-color: rgb(163,200,84);
-    }
-    .table-striped > tbody > tr:nth-child(2n+1) > td > button > i, .table-striped > tbody > tr:nth-child(2n+1) > th {
-      color: rgb(163,200,84);
-    }
-    .table-striped > tbody > tr:nth-child(2n+1) > td > a > button > i, .table-striped > tbody > tr:nth-child(2n+1) > th {
-      color: rgb(163,200,84);
-    }
-    .table-striped > tbody > tr:nth-child(2n) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
-      background-color: rgb(166,132,189);
-      color: white;
-    }
-    .table-striped > tbody > tr:nth-child(2n) > td > button > i, .table-striped > tbody > tr:nth-child(2n+1) > th {
-      color: rgb(166,132,189);
-    }
-    .table-striped > tbody > tr:nth-child(2n) > td > a > button > i, .table-striped > tbody > tr:nth-child(2n+1) > th {
-      color: rgb(166,132,189);
-    }
-
-    .table-borderless > tbody > tr > td,
-    .table-borderless > tbody > tr > th,
-    .table-borderless > tfoot > tr > td,
-    .table-borderless > tfoot > tr > th,
-    .table-borderless > thead > tr > td,
-    .table-borderless > thead > tr > th {
-      border: none;
-    }
-    table {
-      table-layout: fixed;
-      word-wrap: break-word;
-    }
-
-    .btn-sty{
-      width:32px;
-      padding-left: 6px;
-      padding-right: 6px;
-      margin: 1px;
-    }
-
-    .marginless{
-      margin: 0;
-      padding:0;
-    }
-
-  .dataTables_filter {
-    float: left;
-    text-align: left;
-    padding-left: 12px;
-  }
-
-  .clean-link{
-    color: #333;
-    font-style: italic;
-  }
-  .large-hr{
-    background-color: rgb(166,132,189);
-    margin:2px;
-    height: 2px;
-    size: 2px;
-  }
-
-  </style>
+  <link href="{% static 'css/main_style.css' %}" rel="stylesheet">
 </head>
 
 
@@ -94,70 +30,72 @@
     <div class="col-sm-4 col-sm-12">
       <h1>OX Soundboard</h1>
     </div>
-    <div class="col-sm-4 hidden-xs" style="text-align: center;">
-      <h3><a href="https://discord.gg/kfWazWg" class="clean-link">Find us on Discord!</a></h3>
+    <div class="col-sm-4 hidden-xs padded-top" style="text-align: center;">
+      <a href="https://discord.gg/kfWazWg" class="neat-link"><i class="fa fa-external-link"></i> Find us on Discord!</a>
     </div>
-    <div class="col-sm-4 hidden-xs" style="text-align: center;">
-      <h3><a href="http://jack-parkinson.com" class="clean-link">About the creator</a></h3>
+    <div class="col-sm-4 hidden-xs padded-top" style="text-align: center;">
+      <a href="http://jack-parkinson.com" class="neat-link"><i class="fa fa-external-link"></i> About the creator</a>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xs-12 marginless">
-      <table class="table table-striped table-borderless table-condensed display" cellspacing="0" width="100%" id="myTable">
-        <thead>
-          <tr>
-            <th class="col-sm-2 col-xs-4">Name</th>
-            <th class="col-sm-1 col-xs-3">Person</th>
-            <th class="hidden-xs col-sm-7">Description</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for sound in sounds %}
+    <div class="row" id="parent_elem">
+      <div class="marginless col-xs-12 hidden-st" id="table_div">
+        <table class="table table-striped table-borderless table-condensed display" cellspacing="0" width="100%" id="myTable">
+          <thead>
             <tr>
-              <td class="col-sm-2 col-xs-4">
-                <b>{{sound.name}}</b>
-              </td>
-              <td class="col-sm-1 col-xs-3">
-                <b>{{sound.person}}</b>
-              </td>
-              <td class="hidden-xs col-sm-7">
-                <i>"{{sound.description}}"</i>
-              </td>
-              <td>
-                <button id="{{sound.filename}}_btn_stop" class="btn btn-default btn-sty" style="float:right; display:inline"><i class="fa fa-stop"></i></button>
-                <button id="{{sound.filename}}_btn_play" class="btn btn-default btn-sty" style="float:right; display:inline"><i class="fa fa-play"></i></button>
-                <button onclick="window.location.href='{{sound.get_absolute_url}}'" class="btn btn-default btn-sty" style="float:right; display:inline" title="Get sharable url"><i class="fa fa-share"></i></button>
-                <button onclick="window.location.href='{{sound.video_url}}'" class="btn btn-default btn-sty" style="float:right; display:inline" title="View source video"><i class="fa fa-video-camera"></i></button>
-                <a href="" id="{{sound.filename}}_btn_download" download="{{sound.filename}}">
-                  <button class="btn btn-default btn-sty" style="float:right; display:inline" title="Download clip"><i class="fa fa-download"></i></button>
-                </a>
-              </td>
+              <th>Num Plays</th>
+              <th class="col-sm-2 col-xs-4">Name</th>
+              <th class="col-sm-1 col-xs-3">Person</th>
+              <th class="hidden-xs col-sm-7">Description</th>
+              <th></th>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {% for sound in sounds %}
+              <tr>
+                <td>
+                  <b>{{sound.num_plays}}</b>
+                </td>
+                <td class="col-sm-2 col-xs-4">
+                  <b>{{sound.name}}</b>
+                </td>
+                <td class="col-sm-1 col-xs-3">
+                  <b>{{sound.person}}</b>
+                </td>
+                <td class="hidden-xs col-sm-7">
+                  <i>"{{sound.description}}"</i>
+                </td>
+                <td>
+                  <button id="{{sound.filename}}_btn_stop" class="btn btn-default btn-sty" style="float:right; display:inline"><i class="fa fa-stop"></i></button>
+                  <button id="{{sound.filename}}_btn_play" class="btn btn-default btn-sty" style="float:right; display:inline"><i class="fa fa-play"></i></button>
+                  <button onclick="window.location.href='{{sound.get_absolute_url}}'" class="btn btn-default btn-sty" style="float:right; display:inline" title="Get sharable url"><i class="fa fa-share"></i></button>
+                  <button onclick="window.location.href='{{sound.video_url}}'" class="btn btn-default btn-sty" style="float:right; display:inline" title="View source video"><i class="fa fa-video-camera"></i></button>
+                  <a href="" id="{{sound.filename}}_btn_download" download="{{sound.filename}}">
+                    <button class="btn btn-default btn-sty" style="float:right; display:inline" title="Download clip"><i class="fa fa-download"></i></button>
+                  </a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+  </div>
+  <div id="loading_div">
+    loading...
   </div>
   <div class="row visible-xs">
     <div class="col-xs-12" style="text-align: center;">
       <hr class="large-hr" />
     </div>
-    <div class="col-xs-12" style="text-align: center;">
-      <h3><a href="https://discord.gg/kfWazWg" class="clean-link">Find us on Discord!</a></h3>
+    <div class="col-xs-12 bottom-link-div">
+      <a href="https://discord.gg/kfWazWg" class="neat-link"><i class="fa fa-external-link"></i> Find us on Discord!</a>
     </div>
-    <div class="col-xs-12" style="text-align: center;">
-      <h3><a href="http://jack-parkinson.com" class="clean-link">About the creator</a></h3>
+    <div class="col-xs-12 bottom-link-div">
+      <a href="http://jack-parkinson.com" class="neat-link"><i class="fa fa-external-link"></i> About the creator</a>
     </div>
   </div>
 </div>
 
 <script type="text/javascript">
-
-  $(document).ready(function(){
-    console.log("READY");
-  });
-
   var sounds = "{{js_sounds|escapejs}}";
   sounds = JSON.parse(sounds);
 
@@ -185,12 +123,23 @@
       ordering: true,
       responsive: true,
       "dom":' <"search"fl><"top">rt<"bottom"ip><"clear">',
-      "columnDefs": [ {
-        "targets": 3,
-        "orderable": false
-        } ]
+      "columnDefs": [
+        {
+          "targets": 4,
+          "orderable": false
+        },
+        {
+          "targets": 0,
+          "visible": false,
+          "searchable": false
+        }
+      ],
+      "order": [[0, "desc"]]
     });
-  } );
+    $("#table_div").show();
+    $(window).trigger("resize");
+    $("#loading_div").hide();
+  });
 
   function update_count(sound){
     var url = "update/" + sound;

@@ -103,21 +103,32 @@
 </div>
 
 <script type="text/javascript">
-var sound = "{{filename}}";
-var str = "{% static 'audio/sound.mp3' %}";
-var url = str.replace("sound", sound);
-var howl = new Howl({
-  src: [url]
-});
+  var sound = "{{filename}}";
+  var str = "{% static 'audio/sound.mp3' %}";
+  var url = str.replace("sound", sound);
+  var howl = new Howl({
+    src: [url]
+  });
 
-$('#' + sound + '_btn_play').on('click', function () {
-  howl.play();
-});
-$('#' + sound + '_btn_stop').on('click', function () {
-  howl.stop();
-});
-$(document).ready(function(){
-  howl.play();
-});
+  $('#' + sound + '_btn_play').on('click', function () {
+    howl.play();
+    update_count(sound);
+  });
+  $('#' + sound + '_btn_stop').on('click', function () {
+    howl.stop();
+  });
+  $(document).ready(function(){
+    howl.play();
+    update_count(sound);
+  });
+
+  function update_count(sound){
+    // This is cheating - look to get the URL dispatcher working with the sound
+    // as first part?
+    var url = "http://www.oxsoundboard.com/update/" + sound;
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", url, false ); // false for synchronous request
+    xmlHttp.send( null );
+  }
 </script>
 </html>
