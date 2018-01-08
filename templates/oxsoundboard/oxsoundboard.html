@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns#">
 <head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Patrick+Hand">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed">
   <link rel="icon" href="{% static 'img/favicon.ico' %}" />
   <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
   <script src="{% static 'js/howler.js' %}"></script>
@@ -17,11 +19,14 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>OX Soundboard - Jack Parkinson</title>
+
+  <link href="{% static 'css/main_style.css' %}" rel="stylesheet">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
   <meta property="og:title" content="OX Soundboard" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="http://oxsoundboard.com" />
   <meta property="og:image" content="{% static 'img/favicon.ico' %}" />
-  <link href="{% static 'css/main_style.css' %}" rel="stylesheet">
 </head>
 
 
@@ -67,7 +72,7 @@
                 <td>
                   <button id="{{sound.filename}}_btn_stop" class="btn btn-default btn-sty" style="float:right; display:inline"><i class="fa fa-stop"></i></button>
                   <button id="{{sound.filename}}_btn_play" class="btn btn-default btn-sty" style="float:right; display:inline"><i class="fa fa-play"></i></button>
-                  <button onclick="window.location.href='{{sound.get_absolute_url}}'" class="btn btn-default btn-sty" style="float:right; display:inline" title="Get sharable url"><i class="fa fa-share"></i></button>
+                  <button id="{{sound.filename}}_btn_modal" class="btn btn-default btn-sty" style="float:right; display:inline" title="Get sharable url"><i class="fa fa-share"></i></button>
                   <button onclick="window.location.href='{{sound.video_url}}'" class="btn btn-default btn-sty" style="float:right; display:inline" title="View source video"><i class="fa fa-video-camera"></i></button>
                   <a href="" id="{{sound.filename}}_btn_download" download="{{sound.filename}}">
                     <button class="btn btn-default btn-sty" style="float:right; display:inline" title="Download clip"><i class="fa fa-download"></i></button>
@@ -94,6 +99,23 @@
     </div>
   </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="link_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Copy or navigate to url</h5>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" id="modal_content" />
+      </div>
+      <div class="modal-footer">
+        <button onclick="window.location.href='{{sound.get_absolute_url}}'" class="btn btn-default btn-sty" style="display:inline" title="Get sharable url"><i class="fa fa-share"></i></button>
+        <button type="button" class="btn btn-default btn-green" id="copy_to_clip_btn">Copy to Clipboard</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
   var sounds = "{{js_sounds|escapejs}}";
@@ -114,6 +136,11 @@
   	});
   	$(document).on('click', '#'+sound+'_btn_stop', function(){
   		howls[sound].stop();
+  	});
+    $(document).on('click', '#'+sound+'_btn_modal', function(){
+      var modal_url = "http://oxsoundboard.com/" + sound;
+  		$("#modal_content").val(modal_url);
+      $("#link_modal").modal();
   	});
     $('#'+sound+"_btn_download").attr('href',url);
   });
@@ -141,11 +168,29 @@
     $("#loading_div").hide();
   });
 
+  $(document).on('click', '#copy_to_clip_btn', function(){
+    copy_to_clipboard();
+  });
+
   function update_count(sound){
     var url = "update/" + sound;
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", url, false ); // false for synchronous request
     xmlHttp.send( null );
+  }
+
+  function copy_to_clipboard() {
+    var copyTextarea = document.querySelector('#modal_content');
+    console.log(copyTextarea);
+    copyTextarea.select();
+
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+      console.log('Copying text command was ' + msg);
+    } catch (err) {
+      console.log('Oops, unable to copy');
+    }
   }
 </script>
 </html>

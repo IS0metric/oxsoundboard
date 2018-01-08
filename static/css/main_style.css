@@ -1,3 +1,7 @@
+body{
+  font-family: 'Patrick Hand', serif;
+}
+
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
   background-color: rgb(163,200,84);
 }
@@ -37,6 +41,12 @@ table {
   padding-left: 6px;
   padding-right: 6px;
   margin: 1px;
+}
+
+.btn-green{
+  font-style: bold;
+  color: white;
+  background-color: rgb(163,200,84);
 }
 
 .marginless{
