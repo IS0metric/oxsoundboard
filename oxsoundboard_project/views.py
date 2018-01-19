@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from oxsoundboard_project.models import Sound
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 import json
 
 def oxsoundboard(request):
@@ -34,3 +34,22 @@ def update_counter(request, filename):
     sound.save()
     # Needs to return SOMETHING, so return an empty response
     return HttpResponse('')
+
+def get_top_played(request):
+    """API call to get the top played sounds, and idea for the soundboard"""
+    sounds = Sound.objects.all()
+    top_played = []
+    for i in range(0, 10): #
+        sound = sounds[i]
+        sound_string = "".join([
+            str(i+1),
+            ". ",
+            sound.name,
+            " (",
+            sound.person,
+            ")"
+        ])
+        top_played.append(sound_string)
+    resp_string = "".join(top_played)
+    resp_dict = {"data": top_played}
+    return JsonResponse(resp_dict)
