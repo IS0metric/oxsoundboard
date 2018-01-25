@@ -3,7 +3,10 @@ from django.core.wsgi import get_wsgi_application
 #     ["","","","",""],
 
 raw_list = [
-    ["jane_fire", "Jane", "Now You're On Fire", "You couldn't just let it alone, and now you're on fire.", "https://www.youtube.com/watch?v=jkBwcxToWqc"]
+    ["jane_locks", "Jane", "Locks, Caitlin", "Aha, it's not my fault if you're gonna cheap out on something as important as locks, Caitlin...", "https://www.youtube.com/watch?v=8TjuDKjAVkQ"],
+    ["ellen_wonderwall", "Ellen", "Wonderwall", "Anway, here's Wonderwall", "https://www.youtube.com/watch?v=KGEsbXpyq6o"],
+
+
 ]
 
 def populate():
