@@ -105,3 +105,6 @@ db_conf.py
 
 # Restart script
 r.sh
+
+# Git helper
+upload.py

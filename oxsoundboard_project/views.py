@@ -35,11 +35,12 @@ def update_counter(request, filename):
     # Needs to return SOMETHING, so return an empty response
     return HttpResponse('')
 
+
 def get_top_played(request):
     """API call to get the top played sounds, and idea for the soundboard"""
     sounds = Sound.objects.all()
     top_played = []
-    for i in range(0, 10): #
+    for i in range(0, 4): #
         sound = sounds[i]
         sound_string = "".join([
             str(i+1),
@@ -53,3 +54,10 @@ def get_top_played(request):
     resp_string = "".join(top_played)
     resp_dict = {"data": top_played}
     return JsonResponse(resp_dict)
+
+
+def get_sound(request, filename):
+    sound = Sound.objects.get(filename=filename)
+    sound.num_plays+=1
+    sound.save()
+    return HttpResponse('')
