@@ -20,11 +20,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
+debug__ = False
+
+try :
+  import debug
+  debug__ = debug._debug_
+except ():
+  None
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '%8qrz(-@#!zp0trvrb+ptrk50rwfl@*3$qq0lo&x$koxf1mt+o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", False)
+DEBUG = os.environ.get("DEBUG", debug__)
 
 ALLOWED_HOSTS = ['oxsoundboard.com', 'www.oxsoundboard.com', 'localhost', '127.0.0.1']
 

@@ -2,7 +2,11 @@ from django.shortcuts import render, get_object_or_404, render_to_response
 from oxsoundboard_project.models import Sound
 from django.http import HttpResponse, JsonResponse
 from django.template import RequestContext
+from wsgiref.util import FileWrapper
+from django.contrib.staticfiles.templatetags.staticfiles import static
 import json
+import os
+from oxsoundboard.settings import PROJECT_DIR
 
 def oxsoundboard(request):
     """Home page - gets all the sounds and creates a helpful list of all the
@@ -68,4 +72,23 @@ def handler404(request):
     response = render_to_response('oxsoundboard/404.html', {},
                                   context_instance=RequestContext(request))
     response.status_code = 404
+    return response
+
+
+def send_file(request, filename):
+    """
+    Send a file through Django without loading the whole file into
+    memory at once. The FileWrapper will turn the file object into an
+    iterator for chunks of 8KB.
+    """
+    filename = static("audio/" + filename + ".mp3")
+    #filename = "http://" + request.get_host() + filename
+    os.path.join(PROJECT_DIR, filename)
+    #f = open(filename,"w")
+    #wrapper = FileWrapper(file(filename, 'wb'))
+    #response = HttpResponse(wrapper, content_type='audio/mpeg')
+    #response = HttpResponse()
+    response = HttpResponse(FileWrapper(open(filename,"rb")),mimetype='audio/mpeg')
+    response.write(f.read())
+    response['Content-Length'] = os.path.getsize(filename)
     return response
