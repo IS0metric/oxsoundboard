@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response
 from oxsoundboard_project.models import Sound
 from django.http import HttpResponse, JsonResponse
+from django.template import RequestContext
 import json
 
 def oxsoundboard(request):
@@ -61,3 +62,10 @@ def get_sound(request, filename):
     sound.num_plays+=1
     sound.save()
     return HttpResponse('')
+
+
+def handler404(request):
+    response = render_to_response('oxsoundboard/404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response

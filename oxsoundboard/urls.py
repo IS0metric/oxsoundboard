@@ -20,3 +20,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('oxsoundboard_project.urls')),
 ]
+
+handler404 = 'oxsoundboard_project.views.handler404'
+handler500 = 'oxsoundboard_project.views.handler404'

@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '%8qrz(-@#!zp0trvrb+ptrk50rwfl@*3$qq0lo&x$koxf1mt+o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", False)
 
-ALLOWED_HOSTS = ['oxsoundboard.com', 'www.oxsoundboard.com']
+ALLOWED_HOSTS = ['oxsoundboard.com', 'www.oxsoundboard.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
