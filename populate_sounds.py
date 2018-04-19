@@ -3,7 +3,7 @@ from django.core.wsgi import get_wsgi_application
 #     ["","","","",""],
 
 raw_list = [
-    ["welcome", "Misc", "Welcome To The Soundboard!", "Hello-welcome to the Outside Xbox-Xtra soundboard... soundboard... (Andy...)", "https://www.youtube.com/channel/UCKk076mm-7JjLxJcFSXIPJA"],
+    ["welcome", "Misc", "Welcome To The Soundboard!", "Hello-welcome to the Outside Xbox-Xtra soundboard... soundboard... (Andy...)", "https://www.youtube.com/channel/UCKk076mm-7JjLxJcFSXIPJA"]]
 
 def populate():
     for sound in raw_list:

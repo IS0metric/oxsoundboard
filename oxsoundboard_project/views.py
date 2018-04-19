@@ -15,12 +15,7 @@ def oxsoundboard(request):
     sounds = Sound.objects.all()
     js_sounds = []
     for sound in sounds:
-        if sound.rank:
-            js_sounds.append(sound.filename)
-        else:
-            js_sounds.insert(0, sound.filename)
-            sounds.remove(sound)
-            sounds.insert(0, sound)
+        js_sounds.append(sound.filename)
     context = {"sounds": sounds, "js_sounds": json.dumps(js_sounds)}
     return render(request, 'oxsoundboard/oxsoundboard.html', context)
 
