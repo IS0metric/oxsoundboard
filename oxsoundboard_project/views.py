@@ -43,7 +43,7 @@ def update_counter(request, filename):
 
 def get_top_played(request):
     """API call to get the top played sounds, and idea for the soundboard"""
-    sounds = Sound.objects.all()
+    sounds = Sound.objects.filter(rank=True)
     top_played = []
     for i in range(0, 10): #
         sound = sounds[i]
