@@ -3,14 +3,11 @@ from django.core.wsgi import get_wsgi_application
 #     ["","","","",""],
 
 raw_list = [
-    ["jane_unmarkedgraves", "Jane", "Unmarked Graves", "It'll be unmarked graves for the lot of us...", "https://www.youtube.com/watch?v=PvXXVbaDDAw"],
-
-
-
-]
+    ["welcome", "Misc", "Welcome To The Soundboard!", "Hello-welcome to the Outside Xbox-Xtra soundboard... soundboard... (Andy...)", "https://www.youtube.com/channel/UCKk076mm-7JjLxJcFSXIPJA"],
 
 def populate():
     for sound in raw_list:
+        sound_rank = False
         sound_filename = sound[0]
         sound_person = sound[1]
         sound_name = sound[2]
@@ -22,7 +19,8 @@ def populate():
             description=sound_description,
             name=sound_name,
             person=sound_person,
-            video_url=sound_link
+            video_url=sound_link,
+            rank=sound_rank
         )
 
 if __name__ == "__main__":

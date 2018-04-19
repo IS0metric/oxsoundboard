@@ -11,6 +11,7 @@ class Sound(models.Model):
     description = models.CharField(max_length=255)
     video_url = models.CharField(max_length=255, default=None)
     num_plays = models.IntegerField(default=0)
+    rank = models.BooleanField(default=True)
 
     def __str__(self):
         return self.filename
