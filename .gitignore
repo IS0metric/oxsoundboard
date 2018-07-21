@@ -109,3 +109,9 @@ r.sh
 # Git helper
 upload.py
 debug.py
+
+# Powershell Script
+env.ps1
+
+# Env
+/sb-env
