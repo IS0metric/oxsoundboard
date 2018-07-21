@@ -62,6 +62,8 @@
 </div>
 
 <script type="text/javascript">
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
   var sound = "{{context.filename}}";
   var str = "{{ url_for('static', filename='audio/sound.mp3') }}";
   var url = str.replace("sound", sound);
@@ -82,12 +84,9 @@
   });
 
   function update_count(sound){
-    // This is cheating - look to get the URL dispatcher working with the sound
-    // as first part?
-    var url = "http://www.oxsoundboard.com/update/" + sound;
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", url, false ); // false for synchronous request
-    xmlHttp.send( null );
+    $.getJSON($SCRIPT_ROOT + '/update', {
+        filename: sound
+      });
   }
 </script>
 </html>

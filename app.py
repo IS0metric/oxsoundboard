@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 import db_conf
 import json
@@ -58,21 +58,23 @@ def oxsound(filename):
     return render_template('oxsound.html', context=context)
 
 
-@app.route('/update/<filename>')
-def update(filename):
+@app.route('/update')
+def update():
     """Update counter - used as a headless GET request. Given a filename, gets
     the corresponding sound and updates the play count
     """
+    filename = request.args.get('filename', "")
     sound = Sound.query.filter_by(filename=filename).first_or_404()
     sound.num_plays+=1
     db.session.commit()
     # Needs to return SOMETHING, so return an empty response
-    return "success"
+    return jsonify("success")
 
 
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
 
 if __name__ == "__main__":
     app.run(debug=True)
