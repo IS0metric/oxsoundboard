@@ -38,7 +38,6 @@ class Sound(db.Model):
 @app.route('/')
 def home():
     sounds = Sound.query.all()
-
     js_sounds = []
     for sound in sounds:
         js_sounds.append(sound.filename)
@@ -69,6 +68,27 @@ def update():
     db.session.commit()
     # Needs to return SOMETHING, so return an empty response
     return jsonify("success")
+
+
+@app.route("/api/get_top")
+def get_top_played():
+    """API call to get the top played sounds, and idea for the soundboard"""
+    sounds = Sound.query.filter_by(rank=True)
+    top_played = []
+    for i in range(0, 10): #
+        sound = sounds[i]
+        sound_string = "".join([
+            str(i+1),
+            ". ",
+            sound.name,
+            " (",
+            sound.person,
+            ")"
+        ])
+        top_played.append(sound_string)
+    resp_string = "".join(top_played)
+    resp_dict = {"data": top_played}
+    return jsonify(resp_dict)
 
 
 @app.errorhandler(404)

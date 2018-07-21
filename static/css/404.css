@@ -1,0 +1,56 @@
+/* josefin-sans-regular - latin */
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/josefin-sans-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Josefin Sans Regular'), local('JosefinSans-Regular'),
+       url('../fonts/josefin-sans-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/josefin-sans-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/josefin-sans-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/josefin-sans-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/josefin-sans-v12-latin-regular.svg#JosefinSans') format('svg'); /* Legacy iOS */
+}
+
+
+
+    body{
+      font-family: 'Josefin Sans', serif;
+    }
+    .col-md-2 {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      width: 100%;
+    }
+    .col-md-1 {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      width: 100%;
+    }
+    .row.fix {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .well{
+      color: rgb(166,132,189);
+      border-color: rgb(166,132,189);
+    }
+    .fa{
+      color: rgb(163,200,84);
+    }
+    a{
+      color:rgb(163,200,84);
+      font-weight: bold;
+      text-align: right;
+    }
+    a:hover{
+      color:rgb(163,200,84);
+      font-weight: bold;
+      text-align: right;
+    }
+    .well-hr{
+      background-color: rgb(166,132,189);
+      margin:2px;
+      height: 2px;
+      size: 2px;
+    }
