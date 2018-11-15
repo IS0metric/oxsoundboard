@@ -115,3 +115,6 @@ env.ps1
 
 # Env
 /sb-env
+
+# Pop script
+pop.py
