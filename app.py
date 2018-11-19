@@ -16,12 +16,12 @@ db = SQLAlchemy(app)
 class Sound(db.Model):
     __tablename__ = 'oxsoundboard_project_sound'
 
-    filename = db.Column(db.String(255))
+    filename = db.Column(db.String(255), primary_key=True)
     name = db.Column(db.String(255))
     person = db.Column(db.String(255))
     description = db.Column(db.String(255))
     video_url = db.Column(db.String(255))
-    num_plays = db.Column(db.Integer, primary_key=True)
+    num_plays = db.Column(db.Integer)
     rank = db.Column(db.Boolean)
 
     def __str__(self):
@@ -42,7 +42,7 @@ def home():
     for sound in sounds:
         js_sounds.append(sound.filename)
     js_sounds = json.dumps(js_sounds)
-    print(js_sounds)
+    print(len(sounds))
     context = {"sounds":sounds, "js_sounds":js_sounds}
     return render_template("home.html", context=context)
 
