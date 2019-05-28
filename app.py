@@ -93,8 +93,9 @@ def get_top_played():
 
 @app.route("/api/stream/<filename>")
 def stream():
+    sound = Sound.query.filter_by(filename=filename).first_or_404()
     def generate():
-        with open("static/audio/welcome.wav", "rb") as fmp3:
+        with open(join(["static/audio/", filename, ".mp3"]), "rb") as fmp3:
             data = fmp3.read(1024)
             while data:
                 yield data
