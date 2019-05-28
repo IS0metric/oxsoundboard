@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, jsonify, request
+from flask import Flask, render_template, send_from_directory, jsonify, request, Response
 from flask_sqlalchemy import SQLAlchemy
 import db_conf
 import json
