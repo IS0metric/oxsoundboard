@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, jsonify, request, Response
+from flask import Flask, render_template, send_from_directory, jsonify, request, Response, url_for
 from flask_sqlalchemy import SQLAlchemy
 import db_conf
 import json
@@ -95,7 +95,11 @@ def get_top_played():
 def stream(filename):
     sound = Sound.query.filter_by(filename=filename).first_or_404()
     def generate(f):
-        with open("".join(["static/audio/", f, ".mp3"]), "rb") as fmp3:
+        if not db_conf.DEBUG:
+            sound = url_for("static", filename="".join(["audio/", f, ".mp3"]))
+        else:
+            sound = "".join(["static/audio/", f, ".mp3"])
+        with open(sound, "rb") as fmp3:
             data = fmp3.read(1024)
             while data:
                 yield data
@@ -109,4 +113,4 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=db_conf.DEBUG)
