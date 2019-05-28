@@ -4,7 +4,7 @@ import db_conf
 import json
 app = Flask(__name__)
 
-db_string = 'mysql://' + db_conf.DB_USERNAME + ':' + db_conf.DB_PASSWORD + '@' + db_conf.DB_HOST + '/' + db_conf.DB_NAME
+db_string = 'mysql+pymysql://' + db_conf.DB_USERNAME + ':' + db_conf.DB_PASSWORD + '@' + db_conf.DB_HOST + '/' + db_conf.DB_NAME
 app.config['SQLALCHEMY_DATABASE_URI'] = db_string
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['APPLICAITON_ROOT'] = '/'
@@ -95,7 +95,7 @@ def get_top_played():
 def stream(filename):
     sound = Sound.query.filter_by(filename=filename).first_or_404()
     def generate(f):
-        with open(join(["static/audio/", f, ".mp3"]), "rb") as fmp3:
+        with open("".join(["static/audio/", f, ".mp3"]), "rb") as fmp3:
             data = fmp3.read(1024)
             while data:
                 yield data
