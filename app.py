@@ -91,6 +91,17 @@ def get_top_played():
     return jsonify(resp_dict)
 
 
+@app.route("/api/stream/<filename>")
+def stream():
+    def generate():
+        with open("static/audio/welcome.wav", "rb") as fmp3:
+            data = fmp3.read(1024)
+            while data:
+                yield data
+                data = fmp3.read(1024)
+    return Response(generate(), mimetype="audio/mp3")
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
