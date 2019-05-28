@@ -96,7 +96,8 @@ def stream(filename):
     sound = Sound.query.filter_by(filename=filename).first_or_404()
     def generate(f):
         if not db_conf.DEBUG:
-            sound = url_for("static", filename="".join(["audio/", f, ".mp3"]))
+            with app.app_context():
+                sound = url_for("static", filename="".join(["audio/", f, ".mp3"]))
         else:
             sound = "".join(["static/audio/", f, ".mp3"])
         with open(sound, "rb") as fmp3:
