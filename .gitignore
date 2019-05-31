@@ -118,3 +118,6 @@ env.ps1
 
 # Pop script
 pop.py
+
+# Static audio
+/static/audio
