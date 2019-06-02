@@ -78,13 +78,9 @@
   $('#' + sound + '_btn_stop').on('click', function () {
     howl.stop();
   });
-  $(document).ready(function(){
-    howl.play();
-    update_count(sound);
-  });
 
   function update_count(sound){
-    $.getJSON($SCRIPT_ROOT + '/update', {
+    $.getJSON($SCRIPT_ROOT + '/api/update', {
         filename: sound
       });
   }

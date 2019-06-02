@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+{% block title %}Library{% endblock %}
+
+{% block head %}
+<!-- DataTables CSS -->
+<link href="{{ url_for('static', filename='css/datatables.css') }}" rel="stylesheet">
+
+<!-- Local style CSS -->
+<link href="{{ url_for('static', filename='css/new_library_style.css') }}" rel="stylesheet">
+
+<!-- Howler JS -->
+<script src="{{ url_for('static', filename='js/howler.js') }}"></script>
+
+<!-- DataTables (with Responsive) JS -->
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/r-2.2.2/datatables.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row" style="display:none" id="table_div">
+        <table class="display compact" width="100%" id="myTable">
+          <thead>
+            <tr>
+              <th>Num Plays</th>
+              <th>Name</th>
+              <th>Person</th>
+              <th>Description</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for sound in context.sounds %}
+              <tr>
+                <td>
+                  <b>{{sound.num_plays}}</b>
+                </td>
+                <td>
+                  <b>{{sound.name}}</b>
+                </td>
+                <td>
+                  <b>{{sound.person}}</b>
+                </td>
+                <td>
+                  <i>"{{sound.description}}"</i>
+                </td>
+                <td>
+
+                  <button id="{{sound.filename}}_btn_play" data-state="play" class="btn btn-default btn-sty" style="float:right; display:inline"><i class="fas fa-play" id="{{sound.filename}}_icon_play"></i></button>
+                  <button id="{{sound.filename}}_btn_modal" class="btn btn-default btn-sty" style="float:right; display:inline" title="Get sharable url"><i class="fas fa-share"></i></button>
+                  <button onclick="window.location.href='{{sound.video_url}}'" class="btn btn-default btn-sty" style="float:right; display:inline" title="View source video"><i class="fas fa-video"></i></button>
+                  <a href="" id="{{sound.filename}}_btn_download" download="{{sound.filename}}">
+                    <button class="btn btn-default btn-sty" style="float:right; display:inline" title="Download clip"><i class="fas fa-download"></i></button>
+                  </a>
+
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+  </div>
+  <div id="loading_div">
+    loading...
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="link_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Copy or navigate to url</h5>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" id="modal_content" />
+      </div>
+      <div class="modal-footer">
+        <button onclick="nav_to_link()" class="btn btn-default btn-sty" style="display:inline" title="Navigate to url"><i class="fa fa-share"></i></button>
+        <button type="button" class="btn btn-default btn-green" id="copy_to_clip_btn">Copy to Clipboard</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+  var sounds = {{context.js_sounds | safe}};
+  var howls = {};
+
+  sounds.forEach(function(sound){
+    var str = "{{ url_for('static', filename='audio/airhorn.mp3') }}";
+    var url = str.replace("airhorn", sound);
+  	howls[sound] = new Howl({
+  		src: [url]
+  	});
+
+    $(document).on('click', '#'+sound+'_btn_play', function(){
+
+      var state = $('#'+sound+'_btn_play').data("state");
+      if (state == "play") {
+        $('#'+sound+'_btn_play').data("state", "stop");
+        $('#'+sound+'_icon_play').toggleClass("fa-play fa-stop");
+        howls[sound].play();
+        update_count(sound);
+      } else {
+        $('#'+sound+'_btn_play').data("state", "play");
+        $('#'+sound+'_icon_play').toggleClass("fa-play fa-stop");
+        howls[sound].stop();
+      }
+      howls[sound].on('end', function(){
+        var state = $('#'+sound+'_btn_play').data("state", "play");
+        $('#'+sound+'_icon_play').removeClass("fa-play");
+        $('#'+sound+'_icon_play').removeClass("fa-stop");
+        $('#'+sound+'_icon_play').addClass("fa-play");
+      });
+  	});
+    $(document).on('click', '#'+sound+'_btn_modal', function(){
+      var modal_url = "http://oxsoundboard.com/library/" + sound;
+  		$("#modal_content").val(modal_url);
+      $("#link_modal").modal();
+  	});
+    $('#'+sound+"_btn_download").attr('href',url);
+  });
+  var table = $(document).ready(function() {
+    $('#myTable').DataTable({
+      "paging": false,
+      "responsive": true,
+      "ordering": true,
+      "columnDefs": [
+        {
+          "targets": 0,
+          "visible": false
+        },
+        {
+          "targets": 1,
+          "responsivePriority": 1
+        },
+        {
+          "targets": 2,
+          "responsivePriority": 5000
+        },
+        {
+          "targets": 3,
+          "responsivePriority": 10000
+        },
+        {
+          "targets": 4,
+          "responsivePriority": 1,
+          "width": "200px",
+          "orderable": false,
+        },
+      ],
+      "order": [[0, "desc"]]
+    });
+    $("#table_div").show();
+    $(window).trigger("resize");
+    $("#loading_div").hide();
+    $("input").addClass("input-sty");
+  });
+
+  $(document).on('click', '#copy_to_clip_btn', function(){
+    copy_to_clipboard();
+  });
+
+  function update_count(sound){
+    $.getJSON($SCRIPT_ROOT + '/api/update', {
+        filename: sound
+      });
+  }
+
+  function copy_to_clipboard() {
+    var copyTextarea = document.querySelector('#modal_content');
+    console.log(copyTextarea);
+    copyTextarea.select();
+
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+      console.log('Copying text command was ' + msg);
+    } catch (err) {
+      console.log('Oops, unable to copy');
+    }
+  }
+
+  function nav_to_link(){
+    var url = $("#modal_content").val();
+    console.log(url);
+    window.location.href = url;
+  }
+</script>
+
+{% endblock %}

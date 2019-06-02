@@ -34,9 +34,19 @@ class Sound(db.Model):
         return reverse('oxsound', kwargs={'filename': self.filename})
 
 
-
 @app.route('/')
 def home():
+    return render_template("home.html")
+
+
+@app.route('/myboard')
+def personal_board():
+    return render_template("personal_board.html")
+
+
+
+@app.route('/library')
+def library():
     sounds = Sound.query.all()
     js_sounds = []
     for sound in sounds:
@@ -44,12 +54,12 @@ def home():
     js_sounds = json.dumps(js_sounds)
     print(len(sounds))
     context = {"sounds":sounds, "js_sounds":js_sounds}
-    return render_template("home.html", context=context)
+    return render_template("library.html", context=context)
 
 
-@app.route('/<filename>')
+@app.route('/library/<filename>')
 def oxsound(filename):
-    """Single sound - takes a filenme as an argument, returning that sound and
+    """Single sound - takes a filename as an argument, returning that sound and
     the filename (again, for JS to play nicely with)
     """
     sound = Sound.query.filter_by(filename=filename).first_or_404()
@@ -57,7 +67,7 @@ def oxsound(filename):
     return render_template('oxsound.html', context=context)
 
 
-@app.route('/update')
+@app.route('/api/update')
 def update():
     """Update counter - used as a headless GET request. Given a filename, gets
     the corresponding sound and updates the play count
@@ -72,7 +82,7 @@ def update():
 
 @app.route("/api/get_top")
 def get_top_played():
-    """API call to get the top played sounds, and idea for the soundboard"""
+    """API call to get the top played sounds"""
     sounds = Sound.query.filter_by(rank=True)
     top_played = []
     for i in range(0, 10): #
