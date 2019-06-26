@@ -1,8 +1,176 @@
 {% extends 'base.html' %}
 
-{% block title %}{% endblock %}
-{% block style %}{% endblock %}
+{% block title %}Home{% endblock %}
+{% block head %}
+<!-- Howler JS -->
+<script src="{{ url_for('static', filename='js/howler.js') }}"></script>
+<link ref="stylesheet" href="{{ url_for('static', filename='css/home_style.css') }}">
+<style>
+  body {
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
+  .centre-jumbo{
+    text-align: center;
+  }
+
+  a {
+    text-decoration: none;
+    color: #212529;
+  }
+
+  a:hover {
+    text-decoration: none;
+    color: #212529;
+  }
+
+  .jumbotron-mini {
+    padding: 16px 0 16px 0;
+
+  }
+
+  .jumbotron {
+    height: 100%;
+    margin-bottom: 0;
+  }
+
+  .jumbotron-main {
+    maring-bottom: 16px;
+  }
+
+  .row-large{
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+</style>
+{% endblock %}
 
 {% block content %}
+<div class="container">
+  <div class="jumbotron jumbotron-fluid centre-jumbo jumbotron-main">
+    <div class="container">
+      <h1 class="display-4">Welcome to the OX Soundboard!</h1>
+      <p class="lead"><i class="fas fa-play fa-3x" id="play_welcome"></i></p>
+    </div>
+  </div>
+  <div class="row row-large">
+    <div class="col-sm-6">
+      <a href="{{ url_for('library') }}">
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1 class="display-6">Visit the Library</h1>
+            <p class="lead">The classic soundboard! This is where just about all the sounds suggested by the commununity have been collected. If you have any suggestions, see below!</p>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-sm-6">
+      <a href="{{ url_for('personal_board') }}">
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1 class="display-6">Create Your Own</h1>
+            <p class="lead">Soon you will be able to create your very own curated soundboard using the sounds collected in the library.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="row row-large">
+    <div class="col-sm-12">
+      <a href="{{ url_for('suggest') }}">
+        <div class="jumbotron jumbotron-fluid jumbotron-mini centre-jumbo">
+          <div class="container">
+            <h3>Suggest a sound</h3>
+            <p class="lead">Have you heard a bite which would be great on the board? Suggest it here!</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="row row-large">
+    <div class="col-sm-6">
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-6">Sound of the Week</h1>
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-3">
+                <i class="fas fa-play fa-2x" id="play_week"></i>
+              </div>
+              <div class="col-xs-9">
+                <h3 class="lead">{{context.sound_week.name}} ({{context.sound_week.person}})</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12"
+                <p class="lead">"{{context.sound_week.description}}"</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-6">Sound of the Weekend</h1>
+          <div class="row">
+            <div class="col-xs-3">
+              <i class="fas fa-play fa-2x" id="play_weekend"></i>
+            </div>
+            <div class="col-xs-9">
+              <p class="sound-name">{{context.sound_weekend.name}} ({{context.sound_weekend.person}})</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12"
+              <p class="lead">"{{context.sound_weekend.description}}"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<script type="text/javascript">
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+  var file_welcome = "welcome";
+  var file_week = "{{context.file_week}}";
+  var file_weekend = "{{context.file_weekend}}";
+
+  var url_welcome = _week = _weekend = "{{ url_for('static', filename='audio/welcome.mp3') }}";
+  var url_week = _week.replace("welcome", file_week);
+  var url_weekend = _weekend.replace("welcome", file_weekend);
+
+  var howl_welcome = new Howl({
+    src: [url_welcome]
+  });
+  var howl_week = new Howl({
+    src: [url_week]
+  });
+  var howl_weekend = new Howl({
+    src: [url_weekend]
+  });
+
+  $("#play_welcome").on('click', function () {
+    howl_welcome.play();
+  });
+
+  $("#play_week").on('click', function () {
+    howl_week.play();
+  });
+
+  $("#play_weekend").on('click', function () {
+    howl_weekend.play();
+  });
+
+  function update_count(sound){
+    $.getJSON($SCRIPT_ROOT + '/api/update', {
+        filename: sound
+      });
+  }
+</script>
 {% endblock %}

@@ -1,18 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" />
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-  <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+{% extends 'base.html' %}
+
+{% block title %}{{context.sound.name}}{% endblock %}
+
+{% block head %}
   <script src="{{ url_for('static', filename='js/howler.js') }}"></script>
-  <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-free-5.1.0-web/css/all.css') }}" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/sub_style.css') }}" />
+{% endblock %}
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>OX Soundboard - Jack Parkinson</title>
-</head>
-
-
+{% block content %}
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
@@ -57,7 +52,7 @@
     </div>
   </div>
   <div class="row" style="text-align:center">
-    <a href="{{ url_for('home') }}">Back to soundboard</a>
+    <a href="{{ url_for('library') }}">Back to soundboard</a>
   </div>
 </div>
 
@@ -85,4 +80,4 @@
       });
   }
 </script>
-</html>
+{% endblock %}

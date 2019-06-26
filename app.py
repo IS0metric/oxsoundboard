@@ -36,13 +36,23 @@ class Sound(db.Model):
 
 @app.route('/')
 def home():
-    return render_template("home.html")
+    sound_welcome = Sound.query.filter_by(filename="welcome").first()
+    sound_week = sound_welcome
+    sound_weekend = sound_welcome
+    context = {
+        "sound_welcome": sound_welcome,
+        "file_welcome": "welcome",
+        "sound_week": sound_week,
+        "file_week": "welcome",
+        "sound_weekend": sound_weekend,
+        "file_weekend": "welcome",
+    }
+    return render_template("home.html", context=context)
 
 
 @app.route('/myboard')
 def personal_board():
     return render_template("personal_board.html")
-
 
 
 @app.route('/library')
@@ -78,6 +88,11 @@ def update():
     db.session.commit()
     # Needs to return SOMETHING, so return an empty response
     return jsonify("success")
+
+
+@app.route('/suggest')
+def suggest():
+    return render_template("suggest.html")
 
 
 @app.route("/api/get_top")

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}MyBoard{% endblock %}
+{% block head %}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Coming Soon!</h1>
+      <hr/>
+      <p class="lead">Soon you will be able to submit suggestions for sounds that you think belong on the board via a simple form. Once you've submitted them, they'll be reviewed and added over time. For now though, we have set up a simple guide and a Google Sheet for suggesting sounds. Find them below!</p>
+      <p class="lead">The user guide is a quick document that will talk you through suggesting sounds and adding them to the google Sheet. <a href="{{ url_for('static', filename='documents/howtosoundboard.pdf') }}" target="_blank">Click here to view it.</a></p>
+      <p class="lead">It's a little bit crude, but you you can access our Google Sheet by <a href="https://docs.google.com/spreadsheets/d/18lgAA7EwEg4_8xYL5GTqxvCM4ETkCuIcxGsIplFlXuA/edit?usp=sharing" target="_blank">following this link.</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
