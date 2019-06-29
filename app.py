@@ -16,6 +16,7 @@ db = SQLAlchemy(app)
 class Sound(db.Model):
     __tablename__ = 'oxsoundboard_project_sound'
 
+    id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(255), primary_key=True)
     name = db.Column(db.String(255))
     person = db.Column(db.String(255))
@@ -34,18 +35,27 @@ class Sound(db.Model):
         return reverse('oxsound', kwargs={'filename': self.filename})
 
 
+class Randoms(db.Model):
+    __tablename__ = 'oxsoundboard_project_randoms'
+
+    id = db.Column(db.Integer, primary_key=True)
+    sound_week = db.Column(db.Integer)
+    sound_weekend = db.Column(db.Integer)
+
+
 @app.route('/')
 def home():
     sound_welcome = Sound.query.filter_by(filename="welcome").first()
-    sound_week = sound_welcome
-    sound_weekend = sound_welcome
+    randoms = Randoms.query.filter().first()
+    sound_week = Sound.query.filter_by(id=randoms.sound_week).first()
+    sound_weekend = Sound.query.filter_by(id=randoms.sound_weekend).first()
     context = {
         "sound_welcome": sound_welcome,
         "file_welcome": "welcome",
         "sound_week": sound_week,
-        "file_week": "welcome",
+        "file_week": sound_week.filename,
         "sound_weekend": sound_weekend,
-        "file_weekend": "welcome",
+        "file_weekend": sound_weekend.filename,
     }
     return render_template("home.html", context=context)
 

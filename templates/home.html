@@ -6,10 +6,6 @@
 <script src="{{ url_for('static', filename='js/howler.js') }}"></script>
 <link ref="stylesheet" href="{{ url_for('static', filename='css/home_style.css') }}">
 <style>
-  body {
-    font-family: 'Josefin Sans', sans-serif;
-  }
-
   .centre-jumbo{
     text-align: center;
   }
@@ -41,6 +37,15 @@
   .row-large{
     padding-top: 16px;
     padding-bottom: 16px;
+  }
+
+  i {
+    cursor: pointer;
+  }
+
+  .sound-name{
+    padding-top: 2px;
+    padding-left: 4px;
   }
 
 </style>
@@ -99,7 +104,7 @@
                 <i class="fas fa-play fa-2x" id="play_week"></i>
               </div>
               <div class="col-xs-9">
-                <h3 class="lead">{{context.sound_week.name}} ({{context.sound_week.person}})</h3>
+                <h3 class="sound-name">{{context.sound_week.name}} ({{context.sound_week.person}})</h3>
               </div>
             </div>
             <div class="row">
@@ -115,17 +120,19 @@
       <div class="jumbotron jumbotron-fluid">
         <div class="container">
           <h1 class="display-6">Sound of the Weekend</h1>
-          <div class="row">
-            <div class="col-xs-3">
-              <i class="fas fa-play fa-2x" id="play_weekend"></i>
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-3">
+                <i class="fas fa-play fa-2x" id="play_weekend"></i>
+              </div>
+              <div class="col-xs-9">
+                <h3 class="sound-name">{{context.sound_weekend.name}} ({{context.sound_weekend.person}})</h3>
+              </div>
             </div>
-            <div class="col-xs-9">
-              <p class="sound-name">{{context.sound_weekend.name}} ({{context.sound_weekend.person}})</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12"
-              <p class="lead">"{{context.sound_weekend.description}}"</p>
+            <div class="row">
+              <div class="col-xs-12"
+                <p class="lead">"{{context.sound_weekend.description}}"</p>
+              </div>
             </div>
           </div>
         </div>
