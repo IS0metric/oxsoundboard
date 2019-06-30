@@ -8,9 +8,9 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
+<div class="container">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       {% if context.sound.person %}
         <h1>{{context.sound.person}} - {{context.sound.name}}</h1>
       {% else %}
@@ -19,10 +19,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <div class="well" >
         <div class="row">
-          <div class="col-xs-8">
+          <div class="col-sm-8">
             {% if context.sound.person %}
             <span>
               <b>{{context.sound.person}} - {{context.sound.name}}</b>
@@ -37,22 +37,24 @@
               <i>"{{context.sound.description}}"</i>
             </span>
           </div>
-          <div class="col-xs-4" style="padding-left:0; padding-right:10px">
-            <button id="{{context.sound.filename}}_btn_stop" class="btn btn-default" style="float:right; display:inline"><i class="fas fa-stop"></i></button>
-            <button id="{{context.sound.filename}}_btn_play" class="btn btn-default" style="float:right; display:inline"><i class="fas fa-play"></i></button>
+          <div class="col-sm-4" style="padding-left:0; padding-right:10px">
+            <button id="{{context.sound.filename}}_btn_stop" class="btn btn-default" style="float:right; display:inline"><i class="fas fa-stop board-btn"></i></button>
+            <button id="{{context.sound.filename}}_btn_play" class="btn btn-default" style="float:right; display:inline"><i class="fas fa-play board-btn"></i></button>
           </div>
         </div>
       <hr class="well-hr"/>
         <div class="row">
-          <div class="col-xs-12" style="text-align:right">
-            <span><a href="{{context.sound.video_url}}" target="_blank">Link to video</a></span>
+          <div class="col-sm-12" style="text-align:right">
+            <span><a href="{{context.sound.video_url}}" class="link" target="_blank">Link to video</a></span>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="row" style="text-align:center">
-    <a href="{{ url_for('library') }}">Back to soundboard</a>
+    <div class="col-sm-12">
+      <a href="{{ url_for('library') }}" class="link">Back to soundboard</a>
+    </div>
   </div>
 </div>
 

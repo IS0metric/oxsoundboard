@@ -1,3 +1,30 @@
 body {
   font-family: 'Josefin Sans', sans-serif;
 }
+
+.bg-green {
+  background-color: rgb(163,200,84);
+}
+
+.bg-purple {
+  background-color: rgb(166,132,189);
+}
+
+.acc-green {
+  color: rgb(163,200,84);
+  border: 1px solid;
+  background-color: transparent;
+  border-color: rgb(163,200,84);
+}
+
+.acc-purple {
+  color: rgb(166,132,189);
+  border: 1px solid;
+  background-color: transparent;
+  border-color: rgb(166,132,189);
+}
+
+
+.border-none{
+  border: none;
+}

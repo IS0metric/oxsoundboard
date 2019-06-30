@@ -1,8 +1,54 @@
-
-body {
-  font-family: 'Josefin Sans', sans-serif;
-}
-
 .main-jumbo{
   text-align: center;
+}
+
+.purple-well{
+  background-color: rgb(166,132,189);
+}
+
+.green-well{
+  background-color: rgb(163,200,84);
+}
+
+.centre-jumbo{
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: #212529;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #212529;
+}
+
+.jumbotron-mini {
+  padding: 16px 0 16px 0;
+
+}
+
+.jumbotron {
+  height: 100%;
+  margin-bottom: 0;
+}
+
+.jumbotron-main {
+  margin-bottom: 16px;
+}
+
+
+i {
+  cursor: pointer;
+}
+
+.sound-name{
+  padding-top: 2px;
+  padding-left: 4px;
+}
+
+.padded-col{
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
