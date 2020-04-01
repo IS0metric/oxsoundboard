@@ -10,11 +10,6 @@
   font-weight: bold;
   text-align: right;
 }
-a:hover{
-  color:rgb(163,200,84);
-  font-weight: bold;
-  text-align: right;
-}
 .well-hr{
   background-color: rgb(166,132,189);
   margin:2px;
